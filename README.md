@@ -1,2 +1,2 @@
 # RIPS
-Tutorial de programación orientada a objetos, tomando como base el sistema de archivos RIPS del Ministerio de salud de Colombia
+Ejemplo de programación orientada a objetos, tomando como base el sistema de archivos RIPS del Ministerio de salud de Colombia
