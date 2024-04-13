@@ -7,14 +7,34 @@
 internal class Consulta
 {
     // Sección donde se declaran los Miembros o Campos (Members or Fields)
-    private int consecutivo;
-    private string codPrestador;
-    private string codConsulta;
-    private DateTime fechalnicioAtencion;
-    
-    public decimal vrServicio;
-    public string conceptoRecaudo;
-    public decimal valorPagoModerador;
+    public int Consecutivo
+    {
+        get { return consecutivo; }
+    }
+    private readonly int consecutivo;
+        
+    public string CodPrestador { get; }
+    public string CodConsulta { get; }
+
+    public DateTime FechalnicioAtencion { get; set; }
+    public decimal VrServicio { get; set; }
+    public string ConceptoRecaudo 
+    {
+        get => $"PREFIJO {conceptoRecaudo}" ;
+        set 
+        {
+            if (value == conceptoRecaudo)
+                return;
+
+            if (value.Contains("Cuota"))
+                VrServicio = 500;
+
+            conceptoRecaudo = value;
+        }
+    }
+    private string conceptoRecaudo;
+
+    public decimal ValorPagoModerador { get; set; }
 
     /// <summary>
     ///     Definición del constructor con los atributos obligatorios para una consulta
@@ -29,8 +49,8 @@ internal class Consulta
     public Consulta(int consecutivo, string codPrestador, string codConsulta)
     {
         this.consecutivo = consecutivo;
-        this.codPrestador = codPrestador;
-        this.codConsulta = codConsulta;
+        this.CodPrestador = codPrestador;
+        this.CodConsulta = codConsulta;
     }
 
     /// <summary>
@@ -52,7 +72,7 @@ internal class Consulta
     /// </param>
     public void Programar(DateTime fechaInicioAtención, string consultorio, string paciente, string doctor) 
     {
-        this.fechalnicioAtencion = fechaInicioAtención;
+        this.FechalnicioAtencion = fechaInicioAtención;
         
         // TODO: Se deben implementar los demás parámetros
     }
@@ -61,12 +81,12 @@ internal class Consulta
     {
         return $"""
             Consecutivo: {consecutivo}
-            Código de prestador: {codPrestador}
-            Consulta: {codConsulta}
-            Fecha: {fechalnicioAtencion}
-            Concepto de recaudo: {conceptoRecaudo}
-            Valor del recaudo: {valorPagoModerador}
-            Valor del servicio: {vrServicio}
+            Código de prestador: {CodPrestador}
+            Consulta: {CodConsulta}
+            Fecha: {FechalnicioAtencion:MM/dd/yyyy}
+            Concepto de recaudo: {ConceptoRecaudo}
+            Valor del recaudo: {ValorPagoModerador:c2}
+            Valor del servicio: {VrServicio}
             """;
     }
 }
