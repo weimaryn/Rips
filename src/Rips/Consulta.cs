@@ -1,23 +1,62 @@
 ﻿namespace Rips;
 
 /// <summary>
-/// Clase del tipo Consulta, que se usará para generar la información de RIPS, de acuerdo a los
-/// linemaientos del Ministerio de Salud de Colombia
+///     Clase del tipo Consulta, que se usará para generar la información de RIPS, de acuerdo a los
+///     linemaientos del Ministerio de Salud de Colombia
 /// </summary>
 internal class Consulta
 {
-    // Sección donde se declaran los Miembros o Campos (Members or Fields)
+    /// <summary>
+    ///     Debe iniciar con el número uno (1) incrementando de uno en uno. No deben existir números idénticos repetidos.
+    /// </summary>
     public int Consecutivo
     {
         get { return consecutivo; }
     }
     private readonly int consecutivo;
-        
+
+    /// <summary>
+    ///     El código del facturador electrónico en salud se debe encontrar en la tabla "IPSCodHabilitación" 
+    ///     para prestadores de servicios de salud o en "IPSnoREPS" para prestadores exceptuados del registro en REPS.
+    ///     
+    ///     El código del prestador de servicios de salud o del obligado a reportar debe estar relacionado con el numDocumentoldObligado.
+    /// </summary>
     public string CodPrestador { get; }
+
+    /// <summary>
+    ///     El código de CUPS puede ser validado que corresponda a una cobertura de consulta.
+    ///     El código de CUPS puede ser validado que corresponda al sexo del usuario.
+    ///     El código de CUPS puede ser validado con el grupo de servido, servicio, finalidad o causa.
+    ///     El código de CUPS puede ser validado que corresponda a la cobertura o plan de beneficios registrada en la factura electrónica de venta.
+    ///     El código de CUPS se puede validar según la cantidad de veces que se informe por paciente y por día.
+    ///     El código de CUPS se puede validar con el diagnóstico principal.
+    ///     Si se informan registros en el grupo de servicios de internación o el servicio de urgencias el código CUPS se puede validar que sea de consultas intrahospitalarias (interconsultas) y que se encuentre dentro del periodo de internación o de observación de urgencias.
+    ///     Informar dato según tabla de referencia: "CUPSRips", en web.sispro.gov.co
+    /// </summary>
     public string CodConsulta { get; }
 
+    /// <summary>
+    ///     La fecha y hora de la consulta no debe ser mayor a la fecha y hora de validación de los RIPS, 
+    ///     ni menor a la fecha de nacimiento del usuario. Así mismo, no podrá encontrarse por fuera 
+    ///     del periodo de facturación según los datos de la factura electrónica de venta.
+    /// </summary>
     public DateTime FechalnicioAtencion { get; set; }
+
+    /// <summary>
+    ///     Diligenciar el valor mayor a cero (0) si la modalidad de pago corresponde a "Pago por evento". 
+    ///     Para las demás modalidades informar cero(0).
+    ///     Si el RIPS es sin Factura Electrónica de Venta — FEV en salud, informar cero(0).
+    /// </summary>
     public decimal VrServicio { get; set; }
+
+    /// <summary>
+    ///     Informar dato según tabla de referencia: "conceptoRecaudo", en web.sispro.gov.co.Solo aplican los siguientes valores: 
+    ///         02. Cuota moderadora 
+    ///         03. Pagos compartidos en planes voluntarios de salud 
+    ///         05: No aplica
+    ///     Solamente se puede cobrar cuota moderadora a afiliados del régimen contributivo.
+    ///     Para usuarios del régimen subsidiado no se puede informar el pago de valores moderadores de planes voluntarios.
+    /// </summary>
     public string ConceptoRecaudo 
     {
         get => $"PREFIJO {conceptoRecaudo}" ;
@@ -34,6 +73,13 @@ internal class Consulta
     }
     private string conceptoRecaudo;
 
+    /// <summary>
+    ///     Cuando no aplique pago moderador se debe informar cero(0). 
+    ///     Si el tipo de pago moderador es "cuota moderadora" o "bono o vale de plan voluntario" el valor del pago moderador debe ser mayor o igual auno "1". 
+    ///     En el caso del RIPS soporte de factura con varios usuarios o servicios, el valor del pago moderador informado
+    ///     en la factura electrónica de venta en salud, debe corresponder a la sumatoria de detalles de valores de pagos 
+    ///     moderadores de estas facturas de recaudo, informados en RIPS.
+    /// </summary>
     public decimal ValorPagoModerador { get; set; }
 
     /// <summary>
