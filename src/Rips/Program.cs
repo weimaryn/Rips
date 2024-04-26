@@ -17,9 +17,9 @@ consultaOptometria.Programar(DateTime.Now, "Consultorio 001", "Pepito Perez", "D
 consultaOftalmologia.Programar(DateTime.Now, "Consultorio 002", "Juanito Perez", "Doctor de oftalmología");
 
 // Sección donde se cambian los atributos de los objetos
-Console.WriteLine( consultaOptometria.Consecutivo);
+Console.WriteLine(consultaOptometria.Consecutivo);
 consultaOptometria.VrServicio = 1000;
-consultaOptometria.ConceptoRecaudo = "Cuota";
+consultaOptometria.ConceptoRecaudo = "02";
 consultaOptometria.ValorPagoModerador = 8000;
 
 // Sección donde se visualiza la información que actualmente poseen los objetos

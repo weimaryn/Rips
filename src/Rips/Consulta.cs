@@ -6,12 +6,15 @@
 /// </summary>
 internal class Consulta
 {
+    #region Propiedades
+
     /// <summary>
     ///     Debe iniciar con el número uno (1) incrementando de uno en uno. No deben existir números idénticos repetidos.
     /// </summary>
     public int Consecutivo
     {
         get { return consecutivo; }
+        init { consecutivo = value; }
     }
     private readonly int consecutivo;
 
@@ -57,21 +60,22 @@ internal class Consulta
     ///     Solamente se puede cobrar cuota moderadora a afiliados del régimen contributivo.
     ///     Para usuarios del régimen subsidiado no se puede informar el pago de valores moderadores de planes voluntarios.
     /// </summary>
-    public string ConceptoRecaudo 
+    public string? ConceptoRecaudo
     {
-        get => $"PREFIJO {conceptoRecaudo}" ;
-        set 
+        get => $"{conceptoRecaudo} <{conceptoRecaudo switch { "02" => "Cuota moderadora", "03" => "Pago compartido", "05" => "No aplica", _ => "Desconocido" }}>";
+        set
         {
             if (value == conceptoRecaudo)
                 return;
-
-            if (value.Contains("Cuota"))
-                VrServicio = 500;
+            
+            string[] valoresValidos = ["02", "03", "05"];
+            if (!valoresValidos.Contains(value))                
+                throw new ApplicationException("El valor que asignó al concepto de recaudo no es válido. Solo sepermite 02, 03, 05");
 
             conceptoRecaudo = value;
         }
     }
-    private string conceptoRecaudo;
+    private string? conceptoRecaudo;
 
     /// <summary>
     ///     Cuando no aplique pago moderador se debe informar cero(0). 
@@ -80,7 +84,11 @@ internal class Consulta
     ///     en la factura electrónica de venta en salud, debe corresponder a la sumatoria de detalles de valores de pagos 
     ///     moderadores de estas facturas de recaudo, informados en RIPS.
     /// </summary>
-    public decimal ValorPagoModerador { get; set; }
+    public decimal ValorPagoModerador { get; set; }    
+
+    #endregion
+
+    #region Constructorer
 
     /// <summary>
     ///     Definición del constructor con los atributos obligatorios para una consulta
@@ -94,11 +102,17 @@ internal class Consulta
     /// </param>
     public Consulta(int consecutivo, string codPrestador, string codConsulta)
     {
-        this.consecutivo = consecutivo;
-        this.CodPrestador = codPrestador;
-        this.CodConsulta = codConsulta;
+        if (string.IsNullOrWhiteSpace(codPrestador))
+            throw new ArgumentNullException(nameof(codPrestador));
+
+        Consecutivo = consecutivo;
+        CodPrestador = codPrestador;
+        CodConsulta = codConsulta;
     }
 
+    #endregion
+
+    #region Métodos
     /// <summary>
     ///     Permite realizar la programación para la cita de la consulta
     /// </summary>
@@ -116,13 +130,12 @@ internal class Consulta
     /// <param name="doctor">
     ///     Información del profesional de salud que realiza la consulta
     /// </param>
-    public void Programar(DateTime fechaInicioAtención, string consultorio, string paciente, string doctor) 
+    public void Programar(DateTime fechaInicioAtención, string consultorio, string paciente, string doctor)
     {
-        this.FechalnicioAtencion = fechaInicioAtención;
-        
+        FechalnicioAtencion = fechaInicioAtención;
         // TODO: Se deben implementar los demás parámetros
     }
-    
+
     public override string ToString()
     {
         return $"""
@@ -135,4 +148,5 @@ internal class Consulta
             Valor del servicio: {VrServicio}
             """;
     }
+    #endregion
 }
