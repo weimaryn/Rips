@@ -1,10 +1,10 @@
 ﻿namespace Rips;
 
 /// <summary>
-///     Clase del tipo Consulta, que se usará para generar la información de RIPS, de acuerdo a los
+///     Clase del tipo Procedimiento, que se usará para generar la información de RIPS, de acuerdo a los
 ///     linemaientos del Ministerio de Salud de Colombia
 /// </summary>
-internal class Consulta(int consecutivo, string codPrestador, string codConsulta) 
+internal class Procedimiento(int consecutivo, string codPrestador, string codProcedimiento) 
     : Servicio(consecutivo, codPrestador)
 {
     /// <summary>
@@ -19,7 +19,7 @@ internal class Consulta(int consecutivo, string codPrestador, string codConsulta
     ///     Si se informan registros en el grupo de servicios de internación o el servicio de urgencias el código CUPS se puede validar que sea de consultas intrahospitalarias (interconsultas) y que se encuentre dentro del periodo de internación o de observación de urgencias.
     ///     Informar dato según tabla de referencia: "CUPSRips", en web.sispro.gov.co
     /// </summary>
-    public string CodConsulta { get; } = !string.IsNullOrWhiteSpace(codConsulta) ? codConsulta : throw new ArgumentNullException(nameof(codConsulta));
+    public string CodProcedimiento { get; } = !string.IsNullOrWhiteSpace(codProcedimiento) ? codProcedimiento : throw new ArgumentNullException(nameof(codProcedimiento));
 
     /// <summary>
     ///     Tipo de pago moderador según el plan de beneficios o planes o pólizas adquiridas.
@@ -33,13 +33,13 @@ internal class Consulta(int consecutivo, string codPrestador, string codConsulta
     /// </summary>
     public string? ConceptoRecaudo
     {
-        get => $"{conceptoRecaudo} <{conceptoRecaudo switch { "02" => "Cuota moderadora", "03" => "Pago compartido", "05" => "No aplica", _ => "Desconocido" }}>";
+        get => $"{conceptoRecaudo} <{conceptoRecaudo switch { "01" => "Copago", "02" => "Cuota moderadora", "03" => "Pago compartido", "05" => "No aplica", _ => "Desconocido" }}>";
         set
         {
             if (value == conceptoRecaudo)
                 return;
 
-            string[] valoresValidos = ["02", "03", "05"];
+            string[] valoresValidos = ["01", "02", "03", "05"];
             if (!valoresValidos.Contains(value))
                 throw new ApplicationException("El valor que asignó al concepto de recaudo no es válido. Solo sepermite 02, 03, 05");
 
@@ -56,7 +56,7 @@ internal class Consulta(int consecutivo, string codPrestador, string codConsulta
             Fecha: {FechalnicioAtencion:MM/dd/yyyy}
             Valor del recaudo: {ValorPagoModerador:c2}
             Valor del servicio: {VrServicio}
-            Consulta: {CodConsulta}
+            Procedimiento: {CodProcedimiento}
             Concepto de recaudo: {ConceptoRecaudo}
             """;
     }
