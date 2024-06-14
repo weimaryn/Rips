@@ -1,4 +1,4 @@
-﻿namespace Rips;
+﻿namespace RipsConsole;
 
 /// <summary>
 ///     Clase del tipo Consulta, que se usará para generar la información de RIPS, de acuerdo a los

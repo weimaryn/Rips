@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WebApiClient;
+namespace DynamicsClient;
 
 /// <summary>
 /// Estructura de la información que retorna una solicitud GET para un servicio OData

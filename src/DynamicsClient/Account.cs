@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WebApiClient;
+namespace DynamicsClient;
 
 /// <summary>
 /// Información de una cuenta que se puede obtener de Dynamics 365
 /// </summary>
-internal class Account
+public class Account
 {
     [JsonPropertyName("accountid")]
     public Guid AccountId { get; set; }
@@ -16,5 +16,5 @@ internal class Account
     [JsonPropertyName("statecode")]
     public int StateCode { get; set; }
     [JsonPropertyName("new_vencesuscripcion")]
-    public DateTime Expiration { get; set; }
+    public DateTime? Expiration { get; set; }
 }

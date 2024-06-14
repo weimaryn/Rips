@@ -6,7 +6,7 @@
 //********************************************************************************************
 
 // Sección donde se establecen los "Namespaces", que poseen las clases necesarias para realizar los ejemplos
-using Rips;
+using RipsConsole;
 
 // Sección donde se instancia un objeto, estableciendo las propiedades después de la asignación.
 var consultaOptometria = new Consulta(1, "0000001", "Optometría");

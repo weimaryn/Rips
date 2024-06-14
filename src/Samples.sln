@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RipsConsole", "RipsConsole\RipsConsole.csproj", "{A2CC58B7-8615-48EC-ADD8-85ED2130393C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicsClient", "DynamicsClient\DynamicsClient.csproj", "{5AF08E32-4F48-4021-B0F2-9173587C9D22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2CC58B7-8615-48EC-ADD8-85ED2130393C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2CC58B7-8615-48EC-ADD8-85ED2130393C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2CC58B7-8615-48EC-ADD8-85ED2130393C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2CC58B7-8615-48EC-ADD8-85ED2130393C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF08E32-4F48-4021-B0F2-9173587C9D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF08E32-4F48-4021-B0F2-9173587C9D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF08E32-4F48-4021-B0F2-9173587C9D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF08E32-4F48-4021-B0F2-9173587C9D22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {046D8564-5B91-41B8-A40D-AE42F99490BD}
+	EndGlobalSection
+EndGlobal
