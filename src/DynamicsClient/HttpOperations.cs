@@ -9,9 +9,9 @@ internal class HttpOperations
     // Se declaran las variables necesarias para realizar la conexión a los servicios de Dynamics 365
     // ***********************************************************************************************************
     private const string _url = "http://190.249.146.250:81/OftalvisionLtda/api/data/v8.2/";
-    private const string _domain = "oftalvision";
-    private const string _user = "info";
-    private const string _password = "General.237";
+    private const string _domain = "<dominio>";
+    private const string _user = "<user>";
+    private const string _password = "<password>";
 
     // ***********************************************************************************************************
     // Se realiza una solicitudo GET al servicio de Dynamics 365 y se obtiene su respuesta
