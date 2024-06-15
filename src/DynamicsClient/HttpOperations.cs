@@ -8,15 +8,15 @@ internal class HttpOperations
     // ***********************************************************************************************************
     // Se declaran las variables necesarias para realizar la conexión a los servicios de Dynamics 365
     // ***********************************************************************************************************
-    private readonly Uri _uri = new("http://190.249.146.250:81/OftalvisionLtda/api/data/v8.2/");
-    private const string _domain = "<domain>";
-    private const string _user = "<username>";
-    private const string _password = "<password>";
+    private const string _url = "http://190.249.146.250:81/OftalvisionLtda/api/data/v8.2/";
+    private const string _domain = "oftalvision";
+    private const string _user = "info";
+    private const string _password = "General.237";
 
     // ***********************************************************************************************************
     // Se realiza una solicitudo GET al servicio de Dynamics 365 y se obtiene su respuesta
     // ***********************************************************************************************************
-    public async Task<List<T>?> GetCollectionAsync<T>(string entityName, string query) 
+    public static async Task<List<T>?> GetCollectionAsync<T>(string entityName, string query) 
     {            
         var httpClient = GetHttpClient();
         var response = await httpClient.GetAsync(string.Concat(entityName, (!string.IsNullOrWhiteSpace(query) ? "?" : "") , query));
@@ -49,17 +49,15 @@ internal class HttpOperations
     // ***********************************************************************************************************
     // Se crea el cliente de conexión Http con los valores necesario para consumir el servicio de Dynamics 365
     // ***********************************************************************************************************
-    private HttpClient GetHttpClient() 
+    private static HttpClient GetHttpClient() 
     {
         // ***********************************************************************************************************
         // Se crea el objeto que administra las credenciales con las cuales se autenticará el servicio de Dynamics 365
         // ***********************************************************************************************************
-        CredentialCache credentialsCache = new() 
-        {
-            { _uri, "Negotiate", new NetworkCredential(_user, _password, _domain) }
-        };
-        HttpClientHandler handler = new() { Credentials = credentialsCache, PreAuthenticate = true };
-                    
-        return new(handler) { BaseAddress = _uri, Timeout = new TimeSpan(0, 0, 60) };
+        var uri = new Uri(_url);       
+        var credentials = new NetworkCredential(_user, _password, _domain);
+        CredentialCache credentialCache = new() { { uri, "Negotiate", credentials } };
+        HttpClientHandler handler = new() { Credentials = credentialCache, UseDefaultCredentials = false };
+        return new(handler) { BaseAddress = uri, Timeout = new TimeSpan(0, 0, 60) };
     }
 }

@@ -1,0 +1,33 @@
+﻿@model List<DynamicsClient.Account>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<table>
+    <thead>
+        <tr>
+            <td>Account Number</td>
+            <td>Name</td>
+            <td>State Code</td>
+            <td>Expiration</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AccountNumber</td>
+                    <td>@item.Name</td>
+                    <td>@item.StateCode</td>
+                    <td>@item.Expiration</td>
+                </tr>
+            }
+        }        
+    </tbody>
+</table>
